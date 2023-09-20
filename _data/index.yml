@@ -1,0 +1,238 @@
+# badge: '/assets/site/logo.svg' 
+# icon: '/assets/site/favicon.ico'
+
+slogan: 
+  title: >
+    American Stories
+  description: >
+    Billion-scale dataset of public domain American newspapers: 1780-1960
+  install: 'https://huggingface.co/datasets/dell-research-harvard/AmericanStories'
+
+what:
+  title: American Stories
+  description: >
+    Hundreds of millions of newspaper articles from 1780 to 1960
+  functions:  
+    - section: About the Dataset
+      subsections: 
+      - name: Contents
+        title: The largest public collection of structured historical American news articles
+        description: |
+          American Stories is a collection of hundreds of millions of articles, drawn from 1.14 billion newspaper content regions. 
+          The dataset is collected from nearly 20 million individual newspaper scans hosted by
+          Chronicling America, a project by the Library of Congress. 
+
+          ![Dataset counts](/assets/images/index/counts.png)
+
+          The complete dataset contains 65.6 billion words, spans 180 years of American history, and originates from 50 US states and territories.
+
+          ![Breakdown by State](/assets/images/index/state_counts.png)  ![Breakdown by Time](/assets/images/index/time.png)
+
+
+      - name: Pipeline
+        title: A modular, optimized pipeline for extracting article texts
+        description: |
+          American Stories used a deep learning pipeline for extracting full article texts from newspaper images.
+          The pipeline includes layout detection, legibility classification, custom OCR, 
+          and association of article texts spanning multiple bounding
+          boxes. To achieve high scalability, it was built with efficient architectures designed
+          for mobile phones.
+
+          ![Illustration of the pipeline](/assets/images/index/pipeline.png)
+
+          All pipeline components are [open source](https://github.com/dell-research-harvard/AmericanStories). For more information please
+          view [our paper](https://arxiv.org/abs/2308.12477).
+
+        
+      - name: Chronicling America
+        title: Public Domain Newspaper Scans from the Library of Congress
+        description: |
+          Library of Congress's Chronicling America project is the primary public domain historical U.S.
+          newspaper dataset. It consists of around 20 million historical newspaper scans and their corresponding 
+          digitized texts. Its content is concentrated before 1925, as this content has entered the public
+          domain. Chronicling America does not recognize oftentimes complex newspaper layouts, and so
+          digitized texts are provided at the page level, often scrambling headlines, articles, advertisements,
+          captions, and other content regions together.
+
+          Three main differences distingush this dataset from the Chronicling America corpus:
+            1. American Stories contsint content regions, which allow for article-level texts.
+            2. Legibility Classification allows for legibility-aware analyses. 
+            3. American Stories provides more accurate OCR of the Chronicling America scans. The following figure compares OCR word rate
+            between the two datasets:
+
+          ![OCR Comparison](/assets/images/index/nwr.png)
+
+          American Stories uses the same underlying newspaper scans as Chronicling America, but
+          provides a richer dataset with structured article/headline pairs, legibility classification,
+          and customized Efficient OCR.
+
+          ![Chronicling America Example Page](/assets/images/index/0102.jpg)
+        
+      - name: Why Structured Texts
+        title: Structured Article Texts provide more accurate and precise content analyses
+        description: |
+          What makes structured article texts so valuable? Individually processing articles makes a number of 
+          downstream analyses possible, including:
+          
+          *Topic Classification*
+          American Stories supports article level classification, whereas Chronicling America only supports page level classification. A page is a positive example in the ground truth if any of the articles
+          are on topic, and article or chunk predictions can be aggregated to page level predictions using the
+          same definition. Retrieval at the scan level tends to retrieve a lot of extraneous content, as typically
+          only part of the page contains articles about politics.
+
+          *News Story Clustering*
+          The structured nature of American Stories allows for further article-level clustering of content. As a demonstration of this, we show how articles can be grouped into
+          news stories, with different articles that are part of the same unfolding news story clustering together.
+          This prediction is not possible with the unstructured page content in Chronicling America. Details of this experiement are found
+          in [our paper](https://arxiv.org/abs/2308.12477).
+
+          The following list of stories are our results from this experiment:
+
+          ![Biggest stories by year](/assets/images/index/stories.png)
+
+
+
+        #   ![Different Datasets](/assets/images/index/dataset-illustration.png)
+        #   ▲ *Exemplar images in the 5 used datasets (screenshots are taken from their papers or open-sourced datasets).* 
+        # ref: |
+        #   - [LinkTransformer Model Zoo](https://layout-parser.readthedocs.io/en/latest/notes/modelzoo.html)
+
+    # - section: Post-Processing
+    #   subsections: 
+    #   - name: Layout Data structure
+    #     title: Easy Layout Data Manipulation and Processing
+    #     description: |
+    #       LinkTransformer supports different levels of abstraction of layout data, and provides three classes of representation for layout data, namely, `Coordinates`, `TextBlock`, and `Layout`. The same operations and transformations are supported inter and intra these classes to maximize the efficiency when processing the layout data. 
+
+    #       ![Layout Data Structure API Illustration](/assets/images/index/api-specification.png)
+    #     ref: |
+    #       - [Layout Data Structure Documentation](https://layout-parser.readthedocs.io/en/latest/api_doc/elements.html)
+
+    #   - name: Visualization
+    #     title: Highly Customizable Layout Data Visualization 
+    #     description: | 
+    #       LinkTransformer visualizes the layout data using a simple syntax: `lp.draw_box` or `lp.draw_text`. It provides two modes for displaying the layout data: Mode I directly overlays the layout region bounding boxes and categories over the original image. Mode II recreates the original document via drawing the OCR’d texts at their corresponding positions on the image canvas.
+
+    #       ![Examples of Layout Data Visualization](/assets/images/index/viz-example.png)
+    #     ref: |
+    #       - [LinkTransformer Visualization Documentation](https://layout-parser.readthedocs.io/en/latest/api_doc/visualization.html)
+
+    #   - name: Export and Storage
+    #     title: Export Layout Data in Your Favorite Format
+    #     description: | 
+    #       LinkTransformer supports loading and exporting layout data to different formats, including general formats like `csv`, `json`, or domain-specific formats like `PAGE`, `COCO`, or `METS/ALTO` format (Full support for them will be released soon). It provides the flexibility for integrating LinkTransformer with other document image analysis pipelines, and makes it easy to share your outputs with the community. 
+
+    - section: Get the Data
+      subsections: 
+        - name: Huggingface Download
+          title: Easy Download via HuggingFace
+          description: |
+            American Stories is hosted on the HuggingFace Hub, and can be downloaded with a single line of code.
+
+            *WARNING*: The dataset is large (around 4TB), and so downloading the full dataset may take a long time. We recommend downloading a subset of the dataset first to test your code. 
+
+            ```python
+            from datasets import load_dataset
+
+            #  Download data for the year 1809 at the associated article level (Default)
+            dataset = load_dataset("dell-research-harvard/AmericanStories",
+                "subset_years",
+                year_list=["1809", "1810"]
+            )
+
+            # Download and process data for all years at the article level
+            dataset = load_dataset("dell-research-harvard/AmericanStories",
+                "all_years"
+            )
+
+            # Download and process data for 1809 at the scan level
+            dataset = load_dataset("dell-research-harvard/AmericanStories",
+                "subset_years_content_regions",
+                year_list=["1809"]
+            )
+
+            # Download ad process data for all years at the scan level
+            dataset = load_dataset("dell-research-harvard/AmericanStories",
+                "all_years_content_regions")
+
+            ```
+
+    - section: Features
+      subsections: 
+      - name: Layout Detection
+        title: Recognizing Complex Newspaper Layouts
+        description: |
+          American Stories uses a deep docuement layout model to recognizer layout regions in a content-dense 
+          newspaper scan. Splitting texts into 
+          ![Layout Detection Example](/assets/images/index/layouts.png)
+      - name: Legibility Classification
+        title: Not all scans can be read, even by humans
+        description: |
+          Substantial shares of illegible content can degrade language model training and bias downstream
+          applications. For example, it is common for social scientists to construct data based on the presence
+          of keyword terms, assigning a positive outcome if the term is present and a zero outcome otherwise. Illegibility can bias downstream analyses if it is correlated with an underlying unobserved
+          factor. In the case of American Stories, legiblity varies throughout space and time:
+
+          ![Legibility by Year](/assets/images/index/illegible_proportions.png)
+          ![Legibility by State](/assets/images/index/article_illegibility.png)
+
+          We classify each article and headline as Legible, Illegible, or Borderline. 
+
+          ![Legibility Classification Example](/assets/images/index/legibility_examples.png)
+      - name: Efficient OCR
+        title: Accurate OCR built for a huge dataset
+        description: |
+          American Stories uses Efficient OCR, a custom OCR engine built for large collections and historical settings. 
+          More about Efficient OCR can be found at its [paper](https://arxiv.org/abs/2304.02737) or [package](https://pypi.org/project/efficient-ocr/)
+      
+      -section: 
+ 
+      # - name: Efficient Data Labeling
+      #   title: Efficiently Creating Your Training Dataset
+      #   description: |
+      #     No labeled training data available? Don't worry! LinkTransformer also incorporates a data annotation toolkit that enables creating the training dataset much more efficiently. 
+      #     Shown in the illustration below, the tool loads layout predictions from pre-trained models (a), and users only need to select and check a small percentage of model predictions to correct or relabel (b). False-Negative Highlighter (c) helps recognize mis-identified objects from the model predictions. After these steps, the full image annotation is created with less effort.
+          
+      #     ![Illustration of Labeling Interface](/assets/images/index/labeling-ui.png)
+
+      #     ▲ *Illustration of the annotation interface with Object-Level Active Learning features.* [Learn more in this paper](https://arxiv.org/pdf/2010.01762.pdf).
+      #   ref: |
+      #     - [Layout Annotation Service](https://github.com/Layout-Parser/annotation-service)  
+      #     - [The PAWLS Annotation Tool](https://github.com/allenai/pawls)  
+
+    # - section: Community & Resources
+    #   subsections: 
+    #   - name: Integration with HuggingFace Hub
+    #     title: Sharing Trained models on the HuggingFace Hub
+    #     description: |
+    #       LinkTransformer also aims to create a community platform for deep record linkage. Since Deep Learning has barely made any inroads into Record Linkage/Entity matching, trained models would benefit the community - especially those who can't train models themselves. 
+    #       Since LinkTransformers is well-integrated with the HuggingFace hub, all models can be uploaded/downloaded with a single line of code. By streamlining the distribution of record linkage models, as well as promoting the reusability of these deep learning-based pipelines, Linktrasnformer can completely transform the record-linkage workflow and pipelines broadly. 
+    #       Our own models are shared on the hub, and we welcome the community to share their own models as well. 
+    #       <p align="center">
+    #         <a href="https://huggingface.co/dell-research-harvard">
+    #           <img src="/assets/site/Upload.png" alt="Illustration of the sharing Platform" style="width:75%;"/>
+    #         </a>
+    #       </p>
+    #   - name: Demo Video
+    #     title: 
+    #     description: |
+    #       <div class="video_container">
+    #         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Sn47nmCvV9M" frameborder="0" allowfullscreen="true"></iframe>
+    #       </div>
+    #   - name: Tutorial Notebooks
+    #     title: 
+    #     description: |
+    #       - [Train your own LinkTransformer model](https://colab.research.google.com/drive/1tHitPGjMMI2Nvh4wwA8rdcbYfbLaJDvg)
+    #       - [Link Records and other tasks using LinkTransformer models](https://colab.research.google.com/drive/1OqUB8sqpUvrnC8oa_1RoOUzV6DaAKL4N)
+    #       - [Feature Round-up for wrangling using Linktransformer](https://colab.research.google.com/drive/1OqUB8sqpUvrnC8oa_1RoOUzV6DaAKL4N)
+    #   - name: Feature Deck
+    #     title: 
+    #     description: |
+    #       - [LinkTransformer API Preview](https://www.dropbox.com/scl/fi/dquxru8bndlyf9na14cw6/A-python-package-to-do-easy-record-linkage-using-Transformer-models.pdf?rlkey=fiv7j6c0vgl901y940054eptk&dl=0)
+ 
+ 
+        
+learn:
+  title: Get started!
+  description:
+    Start with the [Demo Notebook](https://colab.research.google.com/drive/1ifzTDNDtfrrTy-i7uaq3CALwIWa7GB9A?ts=648b98bf) (opens in Colab) for a quick intro do the American Stories Dataset
