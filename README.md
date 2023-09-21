@@ -1,2 +1,2 @@
-# AmericanStories Project Website
+# Efficient OCR Project Website
 
