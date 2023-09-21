@@ -10,11 +10,11 @@ assets:
 
 menu:
 # - {name: 'Tutorials', file: '/tutorials.html'}
-- {name: 'Docs', file: 'https://huggingface.co/datasets/dell-research-harvard/AmericanStories'}
+- {name: 'Docs', file: 'https://github.com/dell-research-harvard/efficient-ocr'}
 
 social:
 # - {name: 'slack', icon: 'fab fa-slack-hash', link: ''}
-- {name: 'Github', icon: 'fab fa-github', link: 'https://github.com/dell-research-harvard/AmericanStories'}
+- {name: 'Github', icon: 'fab fa-github', link: 'https://github.com/dell-research-harvard/efficient-ocr'}
 
 # tutorials:
 #   categories:
@@ -22,4 +22,4 @@ social:
 #     - {name: 'usecase', title: 'Use Cases'}
 
 footnote: >
-  Created and maintained by AmericanStories Developers. Built with [jekyll](https://jekyllrb.com/) and [bulma](http://bulma.io/).
+  Created and maintained by EffOCR Developers. Built with [jekyll](https://jekyllrb.com/) and [bulma](http://bulma.io/).

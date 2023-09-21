@@ -13,11 +13,11 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: AmericanStories
+title: Efficient OCR
 description: >
-  A massive, structured corpus of American news articles
+  Modular, Customizible, and Scalable OCR
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://americanstories.github.io" 
+url: "https://effocr.github.io" 
 
 # Build settings
 markdown: kramdown
@@ -29,6 +29,11 @@ sass:
     sass_dir: _sass
 
 code_theme: manni
+
+remote_theme: pages-themes/slate@v0.2.0
+plugins:
+- jekyll-remote-theme # add this line to the plugins list if you already have one
+
 
 # Site configuration for the Jekyll 3 Pagination Gem
 # The values here represent the defaults if nothing is set
